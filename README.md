@@ -8,6 +8,7 @@ Benefits:
   * CLR method allows to get out of the saddles points plateaus
 
   https://arxiv.org/pdf/1506.01186.pdf
+  
   Author: Leslie N. Smith
 
 ```python

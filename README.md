@@ -3,7 +3,7 @@
 Cyclical Learning Rate implementation for Keras
 
 Benefits:
-  * No need for tuning LR
+  * No need for LR tuning
   * CLR methods require no additional computation (vs Adaptive Learning Rates)
   * CLR methods allows to get out of the saddles points plateaus
 

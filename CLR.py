@@ -2,6 +2,7 @@ from keras import backend as K
 from keras.callbacks import Callback
 
 import numpy as np
+import matplotlib.pyplot as plt
 
 
 class CyclicalLearningRate(Callback):
@@ -32,7 +33,7 @@ class CyclicalLearningRate(Callback):
         cyclicale_type: str
             - triangular: The LR varies linearly between the min_lr and max_lr
             - triangular2: The LR difference (compute_clr) is cut in half at the end of each cycle
-            - exp_range: The LR varies between the min_lr and the max_lr and each boundary value declines by an exponential factor: gamma^n°batch
+            - exp-range: The LR varies between the min_lr and the max_lr and each boundary value declines by an exponential factor: gamma^n°batch
         gamma: float, exponential factor for boundary decay
 
         '''
@@ -92,3 +93,4 @@ class CyclicalLearningRate(Callback):
             K.set_value(self.model.optimizer.lr, self.compute_clr())
 
         self.lr_history.append(self.compute_clr())
+

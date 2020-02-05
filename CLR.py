@@ -2,6 +2,7 @@ from keras import backend as K
 from keras.callbacks import Callback
 
 import numpy as np
+import matplotlib.pyplot as plt
 
 
 class CyclicalLearningRate(Callback):
@@ -45,6 +46,7 @@ class CyclicalLearningRate(Callback):
         self.cyclical_type = cyclical_type
         self.gamma = gamma
         self.iteration = 0
+        self.position_history = []
         self.lr_history = []
 
     def compute_clr(self):
@@ -69,6 +71,8 @@ class CyclicalLearningRate(Callback):
             local_lr = (self.min_lr + (self.max_lr - self.min_lr) * max(0, (1 - local_position)) * (
                         self.gamma ** self.iteration))
 
+        self.position_history.append(local_position)
+
         return local_lr
 
     def on_train_begin(self, logs):
@@ -92,3 +96,14 @@ class CyclicalLearningRate(Callback):
             K.set_value(self.model.optimizer.lr, self.compute_clr())
 
         self.lr_history.append(self.compute_clr())
+    
+    def plot_lr_cycle(self):
+        plt.plot(self.lr_history, self.position_history)
+        plt.title()
+        plt.show()
+        pass
+        return 
+
+
+    
+

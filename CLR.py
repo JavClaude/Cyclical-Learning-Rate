@@ -28,23 +28,10 @@ class CyclicalLearningRate(Callback):
         cyclicale_type: str
             - triangular: The LR varies linearly between the min_lr and max_lr
             - triangular2: The LR difference (compute_clr) is cut in half at the end of each cycle
-            - exp-range: The LR varies between the min_lr and the max_lr and each boundary value declines by an exponential factor: gamma^n°batch
+            - exp_range: The LR varies between the min_lr and the max_lr and each boundary value declines by an exponential factor: gamma^n°batch
         gamma: float, exponential factor for boundary decay
 
-        Description :
-        -------------
-
-        Parameters :
-        ------------
-            - min_lr: float, valeur minimale du learning rate
-            - max_lr: float, valeur maximale du learning rate
-            - stepsize: int, moitie du cycle ()
-            - cyclicale_type: str
-                - triangular: Variation lineaire du lr entre les deux bornes min/max
-                - triangular2: The LR difference (compute_clr) is cut in half at the end of each cycle
-                - exp_range: le LR varie entre min_lr et max_lr, baisse avec un facteur exponentiel : gamma**n_batch
-            - gamma: float, facteur exponentiel regissant la baisse de la frontiere max
-            
+        
         '''
         super(CyclicalLearningRate, self).__init__()
 
@@ -62,9 +49,6 @@ class CyclicalLearningRate(Callback):
         Description : 
         -------------
         Main:
-            - Definiton du cycle
-            - Definition de la position sur le cycle pour chaque iteration
-            - Calcul du LR en fonction du type de cycle choisi 
             
         '''
         local_cycle = np.floor(1 + self.iteration / (2 * self.stepsize))
@@ -88,8 +72,7 @@ class CyclicalLearningRate(Callback):
         '''
         Description :
         -------------
-        Methode qui initialise (de maniere forcee) le LR min au premier batch
-     
+
         '''
         if self.iteration == 0:
             K.set_value(self.model.optimizer.lr, self.min_lr)
@@ -100,8 +83,7 @@ class CyclicalLearningRate(Callback):
         '''
         Description :
         -------------
-        Methode qui permet d'incrementer le LR en fonction des parametres definis par l'utilisateur
-        
+
         '''
         self.iteration += 1
 
@@ -117,7 +99,6 @@ class CyclicalLearningRate(Callback):
         '''
         Description:
         ------------
-        Methode qui permet de représenter graphiquement les cycles suivis par le Learning rate
 
         '''
         plt.plot(self.iteration, self.lr_history)
